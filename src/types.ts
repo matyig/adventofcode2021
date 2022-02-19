@@ -3,3 +3,7 @@ export type Command = {
   value: number;
 };
 
+export type Bingo = {
+  numbers: number[];
+  tables: number[][][];
+}

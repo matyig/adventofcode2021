@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-import { Command } from './types';
+import { Command, Bingo } from './types';
 import { validCommands, binaryNumbers } from './constants';
 
 /**
@@ -68,4 +68,35 @@ export const getNumArrayFromInputData = (inputData: string[]) =>
    .filter((line) => {
      const isBinary = line.reduce((acc, digit) => acc && binaryNumbers.includes(digit), true);
      return isBinary && line.length === binNumberWidth;
-   });   
+   });
+
+   
+/**
+ * Day 4
+ */
+
+/**
+ * Converts the day 4 input to a Bingo instance
+ * 
+ * @param inputData 
+ * @returns 
+ */
+ export const getBingoDataFromInputData = (inputData: string[]) => {
+  const numbers = inputData[0]
+    .split(',')
+    .map((bingoNumber) => parseInt(bingoNumber))
+    .filter((bingoNumber) => !isNaN(bingoNumber));
+  const tables = [] as number[][][];  
+  inputData.slice(1, inputData.length).reduce((acc, line) => {
+    const row = line.split(' ').map((number) => parseInt(number)).filter((number) => !isNaN(number));
+    if (row.length === 5) {
+      acc.push(row);
+      if (acc.length === 5) {
+        tables.push(acc);
+        acc = [];
+      }
+    }
+    return acc;
+  }, [] as number[][]);
+  return { numbers : numbers, tables: tables} as Bingo;
+}   

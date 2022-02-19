@@ -1,4 +1,4 @@
-import { Command } from './types';
+import { Command, Bingo } from './types';
 
 /**
  * Day 1
@@ -113,3 +113,54 @@ export const finalDepthAdvanced = (commands: Command[]) => horizontal(commands) 
  
  export const lifeSupportRating = (diagnosticReport: number[][]) =>
    oxygenGeneratorRating(diagnosticReport) * co2ScrubberRating(diagnosticReport);
+
+/**
+ * Day 4
+ */
+
+/**
+ * Transpose a number matrix
+ * 
+ * @param m 
+ * @returns 
+ */
+export const transpose = (m: number[][]) =>
+   m[0].map((x,i) => m.map(x => x[i]));
+
+export const rowOfMatrix = (m: number[][], index: number) =>
+   m[index];
+
+export const columnOfMatrix = (m: number[][], index: number) =>
+   transpose(m)[index];
+
+export const isMatrixWinner = (m: number[][], numbers: number[]) =>
+   m.map((row) => row.every(cell => numbers.includes(cell))).includes(true) ||
+   transpose(m).map((row) => row.every(cell => numbers.includes(cell))).includes(true);
+
+export const sumOfUnmarkedNumber = (m: number[][], numbers: number[]) =>   
+   m.flatMap( (row) => row)
+    .filter( (cell) => !numbers.includes(cell))
+    .reduce((acc, item) => acc + item, 0) * numbers.slice(-1)[0];
+
+export const finalScore = (bingoData: Bingo) => {
+  const numOfBingoTables = bingoData.tables.length;
+  const numOfBingoNumbers = bingoData.numbers.length;
+  let numOfDisplayedBingoNumbers = 5;
+
+  let winnerTableIndex = -1;
+  while (numOfDisplayedBingoNumbers <= numOfBingoNumbers + 1 && winnerTableIndex < 0) {
+    const displayedBingoNumbers = bingoData.numbers.slice(0,numOfDisplayedBingoNumbers);
+
+    let tableIndex = 0;
+    while (tableIndex < numOfBingoTables && !isMatrixWinner(bingoData.tables[tableIndex],displayedBingoNumbers)) {
+      ++tableIndex;
+    }
+
+    if (tableIndex < numOfBingoTables) {
+      winnerTableIndex = tableIndex;
+    } else {      
+      ++numOfDisplayedBingoNumbers;
+    }
+  }
+  return winnerTableIndex >= 0 ? sumOfUnmarkedNumber(bingoData.tables[winnerTableIndex], bingoData.numbers.slice(0,numOfDisplayedBingoNumbers)) : 0;
+}

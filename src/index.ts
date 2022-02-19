@@ -1,12 +1,14 @@
 import Table from 'cli-table';
 
-import { getNumArrayFromInputData, getCommandArrayFromInputData, getInputData } from './data';
+import { getNumArrayFromInputData, getCommandArrayFromInputData, getInputData, getBinaryArrayFromInputData } from './data';
 
 import {
   numOfLargerMeasurements,
   numOfLargerMeasurementsAdvanced,
   finalDepth,
-  finalDepthAdvanced,  
+  finalDepthAdvanced,
+  powerConsumption,
+  lifeSupportRating,    
 } from './tasks';
 
 const summary = new Table({
@@ -19,6 +21,9 @@ summary.push([1, numOfLargerMeasurements(dataDay1), numOfLargerMeasurementsAdvan
 
 const dataDay2 = getCommandArrayFromInputData(getInputData('./input/day2.txt'));
 summary.push([2, finalDepth(dataDay2), finalDepthAdvanced(dataDay2)]);
+
+const dataDay3 = getBinaryArrayFromInputData(getInputData('./input/day3.txt'), 12);
+summary.push([3, powerConsumption(dataDay3), lifeSupportRating(dataDay3)]);
 
 /**
  * Summary

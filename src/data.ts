@@ -64,7 +64,7 @@ export const getNumArrayFromInputData = (inputData: string[]) =>
  */
  export const getBinaryArrayFromInputData = (inputData: string[], binNumberWidth: number) =>
  inputData
-   .map((line) => Array.from(line).map((digit) => parseInt(digit)))
+   .map((line) => Array.from(line).map((digit) => parseInt(digit)).filter((digit) => !isNaN(digit)))
    .filter((line) => {
      const isBinary = line.reduce((acc, digit) => acc && binaryNumbers.includes(digit), true);
      return isBinary && line.length === binNumberWidth;

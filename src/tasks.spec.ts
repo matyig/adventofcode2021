@@ -11,10 +11,13 @@ import {
   isTableWinner,
   isBingoNummerWinner,
   findFirstWinnerNumber,
+  findLastWinnerNumber,
   findFirstWinnerTable,
+  findLastWinnerTable,
   getFinalScore,
   sumOfUnmarkedNumber,
-  firstWinnerScore
+  firstWinnerScore,
+  lastWinnerScore
 } from './tasks';
 
 import {
@@ -190,10 +193,21 @@ describe('Tests for Advent Of Coding 2021.', () => {
       expect(result).toStrictEqual(expected);
     });
 
-    it('Given 3 bingo boards and some displayed number, the third table should win after the 12-ste number appear', () => {
-      const displayedNumberIndex = 11;
+    it('Given 3 bingo boards and some displayed number, the first winner should be the 15-ste number', () => {
+      const expected = 14;
+      const result = findLastWinnerNumber(bingoData);
+      expect(result).toStrictEqual(expected);
+    });
+    
+    it('Given 3 bingo boards and some displayed number, the third table should win (after the 12-ste number appear)', () => {
       const expected = 2;
-      const result = findFirstWinnerTable(bingoData, displayedNumberIndex);
+      const result = findFirstWinnerTable(bingoData);
+      expect(result).toStrictEqual(expected);
+    });
+
+    it('Given 3 bingo boards and some displayed number, the second table should win (after the 15-ste number appear)', () => {
+      const expected = 1;
+      const result = findLastWinnerTable(bingoData);
       expect(result).toStrictEqual(expected);
     });
 
@@ -203,14 +217,19 @@ describe('Tests for Advent Of Coding 2021.', () => {
       expect(result).toBe(expected);
     });
 
+    it('Given 3 bingo boards, the final score be 1924 if the 15-ste number appear', () => {
+      const expected = 1924;
+      const result = lastWinnerScore(bingoData);
+      expect(result).toBe(expected);
+    });
+
     it('Given 3 bingo boards, the final score be 4512 if the 12-ste number appear', () => {
       const displayedNumberIndex = 11;
       const winnerTableIndex = 2;
       const expected = 4512;
       const result = getFinalScore(bingoData, displayedNumberIndex, winnerTableIndex);
       expect(result).toBe(expected);
-    });
-
+    });    
   });
 
 });

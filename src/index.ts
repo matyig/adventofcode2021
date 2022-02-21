@@ -9,7 +9,8 @@ import {
   finalDepthAdvanced,
   powerConsumption,
   lifeSupportRating,
-  firstWinnerScore    
+  firstWinnerScore,    
+  lastWinnerScore
 } from './tasks';
 
 const summary = new Table({
@@ -27,7 +28,7 @@ const dataDay3 = getBinaryArrayFromInputData(getInputData('./input/day3.txt'), 1
 summary.push([3, powerConsumption(dataDay3), lifeSupportRating(dataDay3)]);
 
 const bingoData = getBingoDataFromInputData(getInputData('./input/day4.txt'));
-summary.push([4, firstWinnerScore(bingoData), 0]);
+summary.push([4, firstWinnerScore(bingoData), lastWinnerScore(bingoData)]);
 
 /**
  * Summary

@@ -148,14 +148,30 @@ export const isBingoNummerWinner =  (bingoData: Bingo, displayedNumberIndex: num
 export const findFirstWinnerNumber = (bingoData: Bingo) =>
   bingoData.numbers.findIndex((number, index) => isBingoNummerWinner(bingoData, index));
 
-export const findFirstWinnerTable = (bingoData: Bingo, displayedNumberIndex: number) =>
-  bingoData.tables.findIndex((table) => isTableWinner(table, bingoData.numbers.slice(0,displayedNumberIndex + 1)));
+export const findLastWinnerNumber = (bingoData: Bingo) =>
+  bingoData.numbers.findIndex((number, index) => bingoData.tables.every((table) => isTableWinner(table, bingoData.numbers.slice(0,index + 1)))); 
+
+export const findFirstWinnerTable = (bingoData: Bingo) => {
+  const displayedNumberIndex = findFirstWinnerNumber(bingoData);
+  return bingoData.tables.findIndex((table) => isTableWinner(table, bingoData.numbers.slice(0,displayedNumberIndex + 1)));
+}
+
+export const findLastWinnerTable = (bingoData: Bingo) => {
+  const displayedNumberIndex = findLastWinnerNumber(bingoData);
+  return bingoData.tables.reverse().findIndex((table) => !isTableWinner(table, bingoData.numbers.slice(0,displayedNumberIndex)));
+}
 
 export const getFinalScore = (bingoData: Bingo, displayedNumberIndex: number, winnerTableIndex: number) => 
   sumOfUnmarkedNumber(bingoData.tables[winnerTableIndex], bingoData.numbers.slice(0, displayedNumberIndex + 1));  
 
 export const firstWinnerScore =  (bingoData: Bingo) => {
   const firstWinnerNumberIndex = findFirstWinnerNumber(bingoData);
-  const firstWinnerTableIndex = findFirstWinnerTable(bingoData, firstWinnerNumberIndex);
+  const firstWinnerTableIndex = findFirstWinnerTable(bingoData);
   return getFinalScore(bingoData, firstWinnerNumberIndex, firstWinnerTableIndex);
+} 
+
+export const lastWinnerScore =  (bingoData: Bingo) => {
+  const lastWinnerNumberIndex = findLastWinnerNumber(bingoData);
+  const lastWinnerTableIndex = findLastWinnerTable(bingoData);
+  return getFinalScore(bingoData, lastWinnerNumberIndex, lastWinnerTableIndex);
 } 

@@ -5,12 +5,16 @@ import {
   finalDepthAdvanced,
   powerConsumption,
   lifeSupportRating,
-  finalScore,
   transpose,
   rowOfMatrix,
   columnOfMatrix,
-  isMatrixWinner,
-  sumOfUnmarkedNumber      
+  isTableWinner,
+  isBingoNummerWinner,
+  findFirstWinnerNumber,
+  findFirstWinnerTable,
+  getFinalScore,
+  sumOfUnmarkedNumber,
+  firstWinnerScore
 } from './tasks';
 
 import {
@@ -140,7 +144,7 @@ describe('Tests for Advent Of Coding 2021.', () => {
       const bingoNumbers = [7,4,9,5,11];
       const expected = false;
 
-      const result = isMatrixWinner(bingoData.tables[0], bingoNumbers);
+      const result = isTableWinner(bingoData.tables[0], bingoNumbers);
       expect(result).toStrictEqual(expected);
     });
 
@@ -148,7 +152,7 @@ describe('Tests for Advent Of Coding 2021.', () => {
       const bingoNumbers = [7,4,9,5,11,17,23,2,0,14,21,24];
       const expected = true;
 
-      const result = isMatrixWinner(bingoData.tables[2], bingoNumbers);
+      const result = isTableWinner(bingoData.tables[2], bingoNumbers);
       expect(result).toStrictEqual(expected);
     });
 
@@ -166,12 +170,47 @@ describe('Tests for Advent Of Coding 2021.', () => {
       expect(result).toBe(expected);
     });
 
-    it('Given 3 bingo boards, the final score should be 4512', () => {
+    it('Given 3 bingo boards and some numbers, the number 5 should not be a winner', () => {
+      const displayedNumberIndex = 4;
+      const expected = false;
+      const result = isBingoNummerWinner(bingoData, displayedNumberIndex);
+      expect(result).toStrictEqual(expected);
+    });
+
+    it('Given 3 bingo boards and some numbers, the number 12 should not be a winner', () => {
+      const displayedNumberIndex = 11;
+      const expected = true;
+      const result = isBingoNummerWinner(bingoData, displayedNumberIndex);
+      expect(result).toStrictEqual(expected);
+    });
+
+    it('Given 3 bingo boards and some displayed number, the first winner should be the 12-ste number', () => {
+      const expected = 11;
+      const result = findFirstWinnerNumber(bingoData);
+      expect(result).toStrictEqual(expected);
+    });
+
+    it('Given 3 bingo boards and some displayed number, the third table should win after the 12-ste number appear', () => {
+      const displayedNumberIndex = 11;
+      const expected = 2;
+      const result = findFirstWinnerTable(bingoData, displayedNumberIndex);
+      expect(result).toStrictEqual(expected);
+    });
+
+    it('Given 3 bingo boards, the final score be 4512 if the 12-ste number appear', () => {
       const expected = 4512;
-      const result = finalScore(bingoData);
+      const result = firstWinnerScore(bingoData);
       expect(result).toBe(expected);
     });
-  });
 
+    it('Given 3 bingo boards, the final score be 4512 if the 12-ste number appear', () => {
+      const displayedNumberIndex = 11;
+      const winnerTableIndex = 2;
+      const expected = 4512;
+      const result = getFinalScore(bingoData, displayedNumberIndex, winnerTableIndex);
+      expect(result).toBe(expected);
+    });
+
+  });
 
 });

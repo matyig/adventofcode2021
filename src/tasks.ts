@@ -133,7 +133,7 @@ export const rowOfMatrix = (m: number[][], index: number) =>
 export const columnOfMatrix = (m: number[][], index: number) =>
    transpose(m)[index];
 
-export const isMatrixWinner = (m: number[][], numbers: number[]) =>
+export const isTableWinner = (m: number[][], numbers: number[]) =>
    m.map((row) => row.every(cell => numbers.includes(cell))).includes(true) ||
    transpose(m).map((row) => row.every(cell => numbers.includes(cell))).includes(true);
 
@@ -142,25 +142,20 @@ export const sumOfUnmarkedNumber = (m: number[][], numbers: number[]) =>
     .filter( (cell) => !numbers.includes(cell))
     .reduce((acc, item) => acc + item, 0) * numbers.slice(-1)[0];
 
-export const finalScore = (bingoData: Bingo) => {
-  const numOfBingoTables = bingoData.tables.length;
-  const numOfBingoNumbers = bingoData.numbers.length;
-  let numOfDisplayedBingoNumbers = 5;
+export const isBingoNummerWinner =  (bingoData: Bingo, displayedNumberIndex: number) => 
+  bingoData.tables.some((table) => isTableWinner(table, bingoData.numbers.slice(0,displayedNumberIndex + 1)));
 
-  let winnerTableIndex = -1;
-  while (numOfDisplayedBingoNumbers <= numOfBingoNumbers + 1 && winnerTableIndex < 0) {
-    const displayedBingoNumbers = bingoData.numbers.slice(0,numOfDisplayedBingoNumbers);
+export const findFirstWinnerNumber = (bingoData: Bingo) =>
+  bingoData.numbers.findIndex((number, index) => isBingoNummerWinner(bingoData, index));
 
-    let tableIndex = 0;
-    while (tableIndex < numOfBingoTables && !isMatrixWinner(bingoData.tables[tableIndex],displayedBingoNumbers)) {
-      ++tableIndex;
-    }
+export const findFirstWinnerTable = (bingoData: Bingo, displayedNumberIndex: number) =>
+  bingoData.tables.findIndex((table) => isTableWinner(table, bingoData.numbers.slice(0,displayedNumberIndex + 1)));
 
-    if (tableIndex < numOfBingoTables) {
-      winnerTableIndex = tableIndex;
-    } else {      
-      ++numOfDisplayedBingoNumbers;
-    }
-  }
-  return winnerTableIndex >= 0 ? sumOfUnmarkedNumber(bingoData.tables[winnerTableIndex], bingoData.numbers.slice(0,numOfDisplayedBingoNumbers)) : 0;
-}
+export const getFinalScore = (bingoData: Bingo, displayedNumberIndex: number, winnerTableIndex: number) => 
+  sumOfUnmarkedNumber(bingoData.tables[winnerTableIndex], bingoData.numbers.slice(0, displayedNumberIndex + 1));  
+
+export const firstWinnerScore =  (bingoData: Bingo) => {
+  const firstWinnerNumberIndex = findFirstWinnerNumber(bingoData);
+  const firstWinnerTableIndex = findFirstWinnerTable(bingoData, firstWinnerNumberIndex);
+  return getFinalScore(bingoData, firstWinnerNumberIndex, firstWinnerTableIndex);
+} 

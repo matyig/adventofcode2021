@@ -1,17 +1,9 @@
 import Table from 'cli-table';
-
-import { getNumArrayFromInputData, getCommandArrayFromInputData, getInputData, getBinaryArrayFromInputData, getBingoDataFromInputData } from './data';
-
-import {
-  numOfLargerMeasurements,
-  numOfLargerMeasurementsAdvanced,
-  finalDepth,
-  finalDepthAdvanced,
-  powerConsumption,
-  lifeSupportRating,
-  firstWinnerScore,    
-  lastWinnerScore
-} from './tasks';
+import { getInputData } from './data';
+import { getNumArrayFromInputData, numOfLargerMeasurements, numOfLargerMeasurementsAdvanced } from './day1';
+import { finalDepth, finalDepthAdvanced, getCommandArrayFromInputData } from './day2';
+import { powerConsumption, lifeSupportRating, getBinaryArrayFromInputData } from './day3';
+import { firstWinnerScore, getBingoDataFromInputData, lastWinnerScore } from './day4';
 
 const summary = new Table({
   head: ['Day', 'Part 1', 'Part 2'],

@@ -4,6 +4,7 @@ import { getNumArrayFromInputData, numOfLargerMeasurements, numOfLargerMeasureme
 import { finalDepth, finalDepthAdvanced, getCommandArrayFromInputData } from './day2';
 import { powerConsumption, lifeSupportRating, getBinaryArrayFromInputData } from './day3';
 import { firstWinnerScore, getBingoDataFromInputData, lastWinnerScore } from './day4';
+import {getNumOfOverlap, getNumOfOverlapAdvanced, getVentMatrix, getVentsFromInputData} from "./day5";
 
 const summary = new Table({
   head: ['Day', 'Part 1', 'Part 2'],
@@ -21,6 +22,9 @@ summary.push([3, powerConsumption(dataDay3), lifeSupportRating(dataDay3)]);
 
 const bingoData = getBingoDataFromInputData(getInputData('./input/day4.txt'));
 summary.push([4, firstWinnerScore(bingoData), lastWinnerScore(bingoData)]);
+
+const vents = getVentsFromInputData(getInputData('./input/day5.txt'))
+summary.push([5, getNumOfOverlap(vents), getNumOfOverlapAdvanced(vents)]);
 
 /**
  * Summary

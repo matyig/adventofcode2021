@@ -4,10 +4,6 @@ describe('Tests for Day 6', () => {
 
     const input = '3,4,3,1,2'
 
-   it('test0', () => {
-        expect(0).toBe(0)
-    });
-
    it('test', () => {
         const expected = 5934
         const ages = getAgesFromInput(input)

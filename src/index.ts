@@ -6,6 +6,7 @@ import { powerConsumption, lifeSupportRating, getBinaryArrayFromInputData } from
 import { firstWinnerScore, getBingoDataFromInputData, lastWinnerScore } from './day4';
 import { getNumOfOverlap, getNumOfOverlapAdvanced, getVentsFromInputData} from "./day5";
 import { getAdvancedAgesFromAge, getAgesFromInput, getNumOfFishAfterNumOfDays, getNumOfFishAfterNumOfDaysAdvanced } from './day6';
+import { getCrabsPositionFromInput, getLeastFuelHorizontalPosition, getLeastFuelHorizontalPositionAdvanced } from './day7';
 
 const summary = new Table({
   head: ['Day', 'Part 1', 'Part 2'],
@@ -30,6 +31,9 @@ summary.push([5, getNumOfOverlap(vents), getNumOfOverlapAdvanced(vents)]);
 const ages = getAgesFromInput(getInputData('./input/day6.txt')[0])
 const advancedAges = getAdvancedAgesFromAge(ages)
 summary.push([6, getNumOfFishAfterNumOfDays(ages, 80), getNumOfFishAfterNumOfDaysAdvanced(advancedAges, 256)]);
+
+const crabs = getCrabsPositionFromInput(getInputData('./input/day7.txt')[0])
+summary.push([7, getLeastFuelHorizontalPosition(crabs), getLeastFuelHorizontalPositionAdvanced(crabs)])
 
 /**
  * Summary

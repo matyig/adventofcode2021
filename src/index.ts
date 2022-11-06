@@ -4,7 +4,8 @@ import { getNumArrayFromInputData, numOfLargerMeasurements, numOfLargerMeasureme
 import { finalDepth, finalDepthAdvanced, getCommandArrayFromInputData } from './day2';
 import { powerConsumption, lifeSupportRating, getBinaryArrayFromInputData } from './day3';
 import { firstWinnerScore, getBingoDataFromInputData, lastWinnerScore } from './day4';
-import {getNumOfOverlap, getNumOfOverlapAdvanced, getVentMatrix, getVentsFromInputData} from "./day5";
+import { getNumOfOverlap, getNumOfOverlapAdvanced, getVentsFromInputData} from "./day5";
+import { getAdvancedAgesFromAge, getAgesFromInput, getNumOfFishAfterNumOfDays, getNumOfFishAfterNumOfDaysAdvanced } from './day6';
 
 const summary = new Table({
   head: ['Day', 'Part 1', 'Part 2'],
@@ -25,6 +26,10 @@ summary.push([4, firstWinnerScore(bingoData), lastWinnerScore(bingoData)]);
 
 const vents = getVentsFromInputData(getInputData('./input/day5.txt'))
 summary.push([5, getNumOfOverlap(vents), getNumOfOverlapAdvanced(vents)]);
+
+const ages = getAgesFromInput(getInputData('./input/day6.txt')[0])
+const advancedAges = getAdvancedAgesFromAge(ages)
+summary.push([6, getNumOfFishAfterNumOfDays(ages, 80), getNumOfFishAfterNumOfDaysAdvanced(advancedAges, 256)]);
 
 /**
  * Summary

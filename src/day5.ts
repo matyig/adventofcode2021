@@ -1,5 +1,3 @@
-import {webcrypto} from "crypto";
-
 export type Vent = {
     x0: number,
     y0: number,

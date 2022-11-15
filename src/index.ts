@@ -8,6 +8,7 @@ import { getNumOfOverlap, getNumOfOverlapAdvanced, getVentsFromInputData} from "
 import { getAdvancedAgesFromAge, getAgesFromInput, getNumOfFishAfterNumOfDays, getNumOfFishAfterNumOfDaysAdvanced } from './day6';
 import { getCrabsPositionFromInput, getLeastFuelHorizontalPosition, getLeastFuelHorizontalPositionAdvanced } from './day7';
 import { getSevenSegmentsFromInput, getSumOfDigits1478, getSumOfOutputValues } from './day8';
+import { getHeightMapFromInput, getLargestBasin, getRiskLevelOfLowPoints } from './day9';
 
 const summary = new Table({
   head: ['Day', 'Part 1', 'Part 2'],
@@ -38,6 +39,9 @@ summary.push([7, getLeastFuelHorizontalPosition(crabs), getLeastFuelHorizontalPo
 
 const sevenSegments = getSevenSegmentsFromInput(getInputData('./input/day8.txt'))
 summary.push([8, getSumOfDigits1478(sevenSegments), getSumOfOutputValues(sevenSegments)])
+
+const heightmap = getHeightMapFromInput(getInputData('./input/day9.txt'))
+summary.push([9, getRiskLevelOfLowPoints(heightmap), getLargestBasin(heightmap)])
 
 /**
  * Summary

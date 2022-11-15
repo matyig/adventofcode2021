@@ -5,17 +5,12 @@ export type Vent = {
     y1: number
 }
 
-export const createVent = (x0: number, y0: number, x1: number, y1: number): Vent => {
-    return {x0: x0, y0: y0, x1: x1, y1: y1} as Vent;
-}
-
-export const getVentsFromInputData = (inputData: string[]): Vent[] => {
-    const vents = inputData
+export const getVentsFromInputData = (inputData: string[]): Vent[] =>
+    inputData
         .filter( line => line.includes('->'))
         .map( line => line.split('->')
         .flatMap(vent => vent.trim().split(',')))
-    return vents.map( vent => createVent(parseInt(vent[0]), parseInt(vent[1]), parseInt(vent[2]), parseInt(vent[3])))
-}
+        .map( vent => { return { x0: parseInt(vent[0]), y0: parseInt(vent[1]), x1: parseInt(vent[2]), y1: parseInt(vent[3])}})
 
 export const isVentHorizontal = (vent: Vent) : boolean =>
     vent.x0 == vent.x1
